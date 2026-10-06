@@ -267,5 +267,5 @@ git push -u origin main
 An empty database is seeded automatically at boot with the two demo vendors
 (`SEED_DEMO=false` to start empty, `DEMO_CONTACT_EMAIL` decides where their emails go).
 
-Any other Node host works the same way: `npm install && npm run build`, start with `npm start`,
-`PORT` is read from the environment.
+Any other Node host works the same way: `npm ci --include=dev && npm run build`, start with
+`npm start`, and `PORT` is read from the environment.

@@ -5,6 +5,9 @@
   "description": "AI-powered vendor onboarding and verification workspace (technical assessment)",
   "type": "commonjs",
   "main": "src/index.js",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "dev": "concurrently -n api,web -c blue,magenta \"node --watch src/index.js\" \"vite\"",
     "start": "node src/index.js",
@@ -32,5 +35,9 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "vite": "^5.4.21"
+  },
+  "allowScripts": {
+    "better-sqlite3": true,
+    "esbuild": true
   }
 }
