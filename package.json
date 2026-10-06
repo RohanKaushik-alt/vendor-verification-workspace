@@ -1,0 +1,36 @@
+{
+  "name": "vendor-verification-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AI-powered vendor onboarding and verification workspace (technical assessment)",
+  "type": "commonjs",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "concurrently -n api,web -c blue,magenta \"node --watch src/index.js\" \"vite\"",
+    "start": "node src/index.js",
+    "build": "vite build",
+    "preview": "vite preview",
+    "db:reset": "node scripts/reset-db.js",
+    "db:schema": "node scripts/export-schema.js",
+    "samples": "node scripts/make-samples.js",
+    "smoke": "node scripts/smoke-test.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^13.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.3",
+    "multer": "^2.4.0",
+    "nodemailer": "^10.0.15",
+    "pdf-lib": "^1.17.1",
+    "pdf-parse": "^1.1.4",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.7.0",
+    "concurrently": "^9.2.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "vite": "^5.4.21"
+  }
+}

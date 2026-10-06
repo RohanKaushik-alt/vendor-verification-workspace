@@ -1,0 +1,49 @@
+# Render blueprint - "New +" -> "Blueprint" -> point this repo at Render.
+# The free web service runs the Express app on a single port; Express serves
+# the built React SPA from dist/ and the REST API under /api.
+#
+# Notes
+#  * SQLite lives on the instance's ephemeral disk: it is seeded automatically
+#    on an empty database (src/db.js seedIfEmpty) and reset by redeploying.
+#  * Paste the secrets marked "sync: false" in the Render dashboard after the
+#    first deploy - they are intentionally not stored in git.
+#  * GLEIF needs no key, so verification works even before secrets are added.
+
+services:
+  - type: web
+    name: vendor-verification-workspace
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: DB_PATH
+        value: data/app.db
+      - key: UPLOAD_DIR
+        value: data/uploads
+      - key: VERIFY_PROVIDER
+        value: auto
+      - key: EMAIL_PROVIDER
+        value: auto
+      - key: SEED_DEMO
+        value: "true"
+      # --- paste in the dashboard (sync: false keeps them out of git) ---
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: RESEND_API_KEY
+        sync: false
+      - key: DEMO_CONTACT_EMAIL
+        sync: false
+      - key: OPENCORPORATES_API_KEY
+        sync: false
+      - key: COMPANIES_HOUSE_API_KEY
+        sync: false
