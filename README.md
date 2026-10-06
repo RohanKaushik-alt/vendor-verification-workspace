@@ -243,6 +243,10 @@ Foreign keys cascade from `vendors`; WAL mode and `foreign_keys=ON` are set at b
 
 ## 9. Deploying (Render, free tier)
 
+**Live deployment: <https://vendor-verification-workspace-5ty8.onrender.com>**
+(`npm run check:deploy` runs the production E2E suite against it; `CHECK_BASE=<url>` to point it
+elsewhere.)
+
 The repo ships a **`render.yaml` blueprint** — one Node service runs the API *and* serves the built
 SPA from `dist/`, so there is no separate frontend deploy.
 
@@ -267,6 +271,10 @@ git push -u origin main
 
 An empty database is seeded automatically at boot with the two demo vendors
 (`SEED_DEMO=false` to start empty, `DEMO_CONTACT_EMAIL` decides where their emails go).
+
+> **Deploys:** the service is connected to this repo. Pushes to `main` deploy automatically once
+> the Render GitHub app is connected (dashboard → service → GitHub → Connect); until then trigger
+> **Deploy latest commit** in the dashboard or `POST /v1/services/<id>/deploys`.
 
 Any other Node host works the same way: `npm ci --include=dev && npm run build`, start with
 `npm start`, and `PORT` is read from the environment.
