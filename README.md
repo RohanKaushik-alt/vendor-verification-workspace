@@ -71,6 +71,7 @@ Other scripts:
 | `npm run db:reset` | drops and recreates `data/app.db` with a demo vendor |
 | `npm run db:schema` | dumps the live schema to `db/schema.exported.sql` |
 | `npm run smoke` | 32-assertion end-to-end test against a running API |
+| `npm run check:deploy` | same style of checks against a *deployed* instance (`CHECK_BASE` overrides the URL) |
 
 ---
 

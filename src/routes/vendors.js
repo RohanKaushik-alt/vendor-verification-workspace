@@ -1,7 +1,10 @@
 'use strict';
 
 const express = require('express');
+const fs = require('fs');
+const path = require('path');
 const { z } = require('zod');
+const config = require('../config');
 const { db, createVendor, saveVendor, restoreVersion } = require('../db');
 const { asyncHandler, badRequest, notFound } = require('../http');
 const { evaluate, setStatus, applySystemRules } = require('../services/workflow');
@@ -120,6 +123,27 @@ router.patch(
       changed: result.changed,
       version: result.version,
     });
+  }),
+);
+
+// ---------------------------------------------------------------------------
+// Delete a vendor. Rows cascade from `vendors`; stored uploads are removed too.
+// ---------------------------------------------------------------------------
+router.delete(
+  '/:id',
+  asyncHandler(async (req, res) => {
+    const id = Number(req.params.id);
+    const vendor = db.prepare('SELECT id FROM vendors WHERE id = ?').get(id);
+    if (!vendor) throw notFound('Vendor not found');
+
+    const docs = db.prepare('SELECT stored_name FROM documents WHERE vendor_id = ?').all(id);
+    db.prepare('DELETE FROM vendors WHERE id = ?').run(id);
+
+    for (const doc of docs) {
+      fs.unlink(path.join(config.uploadDir, doc.stored_name), () => {});
+    }
+
+    res.json({ deleted: id, files_removed: docs.length });
   }),
 );
 

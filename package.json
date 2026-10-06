@@ -16,7 +16,8 @@
     "db:reset": "node scripts/reset-db.js",
     "db:schema": "node scripts/export-schema.js",
     "samples": "node scripts/make-samples.js",
-    "smoke": "node scripts/smoke-test.js"
+    "smoke": "node scripts/smoke-test.js",
+    "check:deploy": "node scripts/deploy-check.mjs"
   },
   "dependencies": {
     "better-sqlite3": "^13.0.3",
